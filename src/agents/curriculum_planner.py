@@ -83,20 +83,30 @@ class CurriculumPlannerAgent(BaseAgent):
 
     def _build_curriculum_graph(self) -> str:
         """Build a text representation of the curriculum graph."""
-        topics = self.db_manager.get_topics_by_category("fundamentals")
-        topics += self.db_manager.get_topics_by_category("data_structures")
-        topics += self.db_manager.get_topics_by_category("algorithms")
-        topics += self.db_manager.get_topics_by_category("complexity")
-
         graph_lines = []
-        for topic in topics:
-            prereqs = self.db_manager.get_topic_prerequisites(topic.topic_id)
-            prereq_ids = [p.topic_id for p in prereqs]
 
-            graph_lines.append(
-                f"- {topic.title} (ID: {topic.topic_id}, Difficulty: {topic.difficulty}, "
-                f"Prerequisites: {', '.join(prereq_ids) if prereq_ids else 'None'})"
-            )
+        # Access database within session context to avoid DetachedInstanceError
+        with self.db_manager.get_session() as session:
+            from ..database.models import Topic, TopicPrerequisite
+
+            # Get all topics
+            topics = []
+            for category in ["fundamentals", "data_structures", "algorithms", "complexity"]:
+                category_topics = session.query(Topic).filter(Topic.category == category).all()
+                topics.extend(category_topics)
+
+            # Build graph representation
+            for topic in topics:
+                # Get prerequisites within session
+                prereq_records = session.query(TopicPrerequisite).filter(
+                    TopicPrerequisite.topic_id == topic.topic_id
+                ).all()
+                prereq_ids = [p.prerequisite_id for p in prereq_records]
+
+                graph_lines.append(
+                    f"- {topic.title} (ID: {topic.topic_id}, Difficulty: {topic.difficulty}, "
+                    f"Prerequisites: {', '.join(prereq_ids) if prereq_ids else 'None'})"
+                )
 
         return "\n".join(graph_lines)
 
