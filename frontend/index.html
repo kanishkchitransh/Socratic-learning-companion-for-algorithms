@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socratic Learning Companion</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 Socratic Learning Companion</h1>
+            <p>Interactive Algorithm Learning System</p>
+        </header>
+
+        <!-- Status Bar -->
+        <div id="statusBar" class="status-bar"></div>
+
+        <!-- Student Registration Section -->
+        <section class="card" id="registrationSection">
+            <h2>1. Student Registration</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="userId">User ID:</label>
+                    <input type="text" id="userId" placeholder="Enter your user ID" required>
+                </div>
+                <div class="form-group">
+                    <label for="userName">Name:</label>
+                    <input type="text" id="userName" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="userEmail">Email:</label>
+                    <input type="email" id="userEmail" placeholder="your.email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="background">Background:</label>
+                    <textarea id="background" placeholder="Describe your programming background" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="learningGoals">Learning Goals:</label>
+                    <textarea id="learningGoals" placeholder="What do you want to learn?" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="learningPace">Learning Pace:</label>
+                    <select id="learningPace">
+                        <option value="slow">Slow</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="fast">Fast</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </section>
+
+        <!-- Session Start Section -->
+        <section class="card" id="sessionSection" style="display: none;">
+            <h2>2. Start Learning Session</h2>
+            <form id="sessionForm">
+                <div class="form-group">
+                    <label for="topicId">Topic:</label>
+                    <select id="topicId" required>
+                        <option value="">Select a topic...</option>
+                        <option value="dynamic_programming">Dynamic Programming</option>
+                        <option value="greedy_algorithms">Greedy Algorithms</option>
+                        <option value="divide_and_conquer">Divide and Conquer</option>
+                        <option value="graph_algorithms">Graph Algorithms</option>
+                        <option value="sorting_algorithms">Sorting Algorithms</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sessionGoal">Session Goal:</label>
+                    <textarea id="sessionGoal" placeholder="What do you want to achieve in this session?" rows="2"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Start Session</button>
+            </form>
+        </section>
+
+        <!-- Chat Section -->
+        <section class="card" id="chatSection" style="display: none;">
+            <h2>3. Socratic Dialogue</h2>
+            <div id="chatMessages" class="chat-messages"></div>
+            <form id="chatForm">
+                <div class="form-group chat-input-group">
+                    <textarea id="chatMessage" placeholder="Ask a question or respond to the tutor..." rows="2" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </form>
+            <div class="chat-info">
+                <p><strong>Teaching Stage:</strong> <span id="teachingStage">-</span></p>
+                <p><strong>Understanding Score:</strong> <span id="understandingScore">-</span></p>
+                <p><strong>Agent:</strong> <span id="currentAgent">-</span></p>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section class="card" id="progressSection" style="display: none;">
+            <h2>4. Learning Progress</h2>
+            <button id="refreshProgress" class="btn btn-secondary">Refresh Progress</button>
+            <div id="progressDisplay" class="progress-display">
+                <p>Click "Refresh Progress" to see your learning statistics</p>
+            </div>
+        </section>
+
+        <!-- Curriculum Graph Section -->
+        <section class="card">
+            <h2>5. Curriculum Map</h2>
+            <button id="loadCurriculum" class="btn btn-secondary">Load Curriculum</button>
+            <div id="curriculumDisplay" class="curriculum-display">
+                <p>Click "Load Curriculum" to see available topics and prerequisites</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
