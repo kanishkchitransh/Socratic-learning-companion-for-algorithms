@@ -1,8 +1,8 @@
 """Initialize database with schema and curriculum."""
 
-from database.db_manager import get_db_manager
-from database.chroma_manager import get_chroma_manager
-from utils.logging_config import setup_logging, get_logger
+from src.database.db_manager import get_db_manager
+from src.database.chroma_manager import get_chroma_manager
+from src.utils.logging_config import setup_logging, get_logger
 
 setup_logging()
 logger = get_logger(__name__)

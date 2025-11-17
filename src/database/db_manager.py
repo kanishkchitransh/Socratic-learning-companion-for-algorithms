@@ -264,7 +264,7 @@ class DatabaseManager:
                 role=role,
                 content=content,
                 agent_type=agent_type,
-                metadata=metadata,
+                message_metadata=metadata,
             )
             session_db.add(message)
             session_db.flush()

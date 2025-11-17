@@ -128,7 +128,7 @@ class Conversation(Base):
     role = Column(String(20), nullable=False)  # user/assistant/system
     content = Column(Text, nullable=False)
     agent_type = Column(String(50), nullable=True)  # orchestrator/tutor/assessor/etc
-    metadata = Column(JSON, nullable=True)  # Additional context (retrieved chunks, reasoning, etc.)
+    message_metadata = Column(JSON, nullable=True)  # Additional context (retrieved chunks, reasoning, etc.)
 
     # Relationships
     student = relationship("Student", back_populates="conversations")

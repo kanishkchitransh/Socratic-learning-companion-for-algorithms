@@ -1,0 +1,11 @@
+{
+  "total_files": 1,
+  "processed_files": 0,
+  "total_chunks": 0,
+  "files": [
+    {
+      "name": "Algorithm Design by Jon Kleinberg, Eva Tardos (1).pdf",
+      "error": "403 Client Error: Forbidden for url: https://openaipublic.blob.core.windows.net/encodings/cl100k_base.tiktoken"
+    }
+  ]
+}

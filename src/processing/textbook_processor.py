@@ -2,7 +2,6 @@
 
 import re
 from typing import List, Dict, Any, Optional
-import tiktoken
 
 from .base_processor import PDFProcessor, TextChunk, ChunkClassifier
 from ..utils.config import settings
@@ -37,8 +36,16 @@ class TextbookProcessor(PDFProcessor):
         self.chunk_overlap = chunk_overlap or settings.chunk_overlap
         self.max_chunk_size = max_chunk_size or settings.max_chunk_size
 
-        # Use tiktoken for accurate token counting
-        self.encoding = tiktoken.get_encoding("cl100k_base")
+        # Try to use tiktoken, fall back to approximation if unavailable
+        try:
+            import tiktoken
+            self.encoding = tiktoken.get_encoding("cl100k_base")
+            self.use_tiktoken = True
+            logger.info("Using tiktoken for token counting")
+        except Exception as e:
+            self.encoding = None
+            self.use_tiktoken = False
+            logger.warning("Tiktoken unavailable, using approximation", error=str(e))
 
         self.logger = logger.bind(
             pdf_path=str(self.pdf_path),
@@ -47,8 +54,17 @@ class TextbookProcessor(PDFProcessor):
         )
 
     def count_tokens(self, text: str) -> int:
-        """Count tokens in text."""
-        return len(self.encoding.encode(text))
+        """Count tokens in text using tiktoken or approximation."""
+        if self.use_tiktoken and self.encoding:
+            try:
+                return len(self.encoding.encode(text))
+            except:
+                pass
+
+        # Fallback: approximate token count
+        # GPT-style tokenizers typically: 1 token ≈ 0.75 words ≈ 4 characters
+        words = len(text.split())
+        return int(words / 0.75)  # Approximate tokens from words
 
     def extract_chapter_info(self, page_num: int) -> Optional[Dict[str, Any]]:
         """

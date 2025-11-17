@@ -1,0 +1,25 @@
+# Phase 1 Minimal Requirements (PDF Processing Only)
+
+# PDF Processing
+PyMuPDF==1.23.8
+tiktoken==0.5.2
+
+# Google Gemini
+google-generativeai==0.3.2
+
+# Vector Database
+chromadb==0.4.22
+
+# Database
+sqlalchemy==2.0.25
+
+# Data Validation
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# Utilities
+python-dotenv==1.0.0
+structlog==24.1.0
+
+# Testing
+pytest==7.4.4

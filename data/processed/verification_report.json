@@ -1,0 +1,30 @@
+{
+  "collection_stats": {
+    "name": "textbook_chunks",
+    "count": 0,
+    "metadata": {
+      "chunk_overlap": 50,
+      "chunk_size": 512,
+      "chunk_strategy": "fixed_size",
+      "description": "Kleinberg-Tardos textbook chunks"
+    }
+  },
+  "sample_retrievals": [
+    {
+      "query": "What is dynamic programming?",
+      "error": "Timeout of 60.0s exceeded, last exception: 503 failed to connect to all addresses; last error: UNKNOWN: ipv4:21.0.0.73:15002: Ssl handshake failed (TSI_PROTOCOL_FAILURE): SSL_ERROR_SSL: error:1000007d:SSL routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED: self signed certificate in certificate chain"
+    },
+    {
+      "query": "Explain the greedy algorithm approach",
+      "error": "Timeout of 60.0s exceeded, last exception: 503 failed to connect to all addresses; last error: UNKNOWN: ipv4:21.0.0.73:15002: Ssl handshake failed (TSI_PROTOCOL_FAILURE): SSL_ERROR_SSL: error:1000007d:SSL routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED: self signed certificate in certificate chain"
+    },
+    {
+      "query": "How does network flow work?",
+      "error": "Timeout of 60.0s exceeded, last exception: 503 failed to connect to all addresses; last error: UNKNOWN: ipv4:21.0.0.73:15002: Ssl handshake failed (TSI_PROTOCOL_FAILURE): SSL_ERROR_SSL: error:1000007d:SSL routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED: self signed certificate in certificate chain"
+    },
+    {
+      "query": "What is NP-completeness?",
+      "error": "Timeout of 60.0s exceeded, last exception: 503 failed to connect to all addresses; last error: UNKNOWN: ipv4:21.0.0.73:15002: Ssl handshake failed (TSI_PROTOCOL_FAILURE): SSL_ERROR_SSL: error:1000007d:SSL routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED: self signed certificate in certificate chain"
+    }
+  ]
+}
