@@ -64,9 +64,12 @@ class ChromaManager:
     ) -> chromadb.Collection:
         """Create or get a collection."""
         try:
+            # ChromaDB requires metadata to be None or a non-empty dict
+            collection_metadata = metadata if metadata else {"created": "true"}
+
             collection = self.client.get_or_create_collection(
                 name=collection_name,
-                metadata=metadata or {},
+                metadata=collection_metadata,
             )
             logger.info("Collection created/retrieved", name=collection_name)
             return collection

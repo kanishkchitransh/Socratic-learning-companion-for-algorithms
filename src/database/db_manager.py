@@ -95,6 +95,7 @@ class DatabaseManager:
             session.add(student)
             session.flush()
             session.refresh(student)
+            session.expunge(student)  # Detach object from session
             logger.info("Student created", user_id=user_id, name=name)
             return student
 
@@ -128,6 +129,7 @@ class DatabaseManager:
             session.add(topic)
             session.flush()
             session.refresh(topic)
+            session.expunge(topic)  # Detach object from session
             logger.info("Topic created", topic_id=topic_id, title=title)
             return topic
 
@@ -144,6 +146,7 @@ class DatabaseManager:
             session.add(prereq)
             session.flush()
             session.refresh(prereq)
+            session.expunge(prereq)  # Detach object from session
             logger.info(
                 "Prerequisite added",
                 topic_id=topic_id,
@@ -191,7 +194,14 @@ class DatabaseManager:
             )
 
             if not progress:
-                progress = StudentProgress(user_id=user_id, topic_id=topic_id)
+                progress = StudentProgress(
+                    user_id=user_id,
+                    topic_id=topic_id,
+                    status="not_started",
+                    understanding_score=0.0,
+                    attempts=0,
+                    time_spent_minutes=0
+                )
                 session.add(progress)
 
             if status:
@@ -199,9 +209,11 @@ class DatabaseManager:
             if understanding_score is not None:
                 progress.understanding_score = understanding_score
             if time_spent_minutes is not None:
-                progress.time_spent_minutes += time_spent_minutes
+                # Handle None values with or 0
+                progress.time_spent_minutes = (progress.time_spent_minutes or 0) + time_spent_minutes
 
-            progress.attempts += 1
+            # Handle None values with or 0
+            progress.attempts = (progress.attempts or 0) + 1
 
             from datetime import datetime
             progress.last_studied_at = datetime.utcnow()
@@ -211,6 +223,7 @@ class DatabaseManager:
 
             session.flush()
             session.refresh(progress)
+            session.expunge(progress)  # Detach object from session
             logger.info(
                 "Progress updated",
                 user_id=user_id,
@@ -269,6 +282,7 @@ class DatabaseManager:
             session_db.add(message)
             session_db.flush()
             session_db.refresh(message)
+            session_db.expunge(message)  # Detach object from session
             return message
 
     def get_conversation_history(
@@ -308,6 +322,7 @@ class DatabaseManager:
             session.add(misconception)
             session.flush()
             session.refresh(misconception)
+            session.expunge(misconception)  # Detach object from session
             logger.info(
                 "Misconception recorded",
                 user_id=user_id,
@@ -351,6 +366,7 @@ class DatabaseManager:
             session_db.add(session_obj)
             session_db.flush()
             session_db.refresh(session_obj)
+            session_db.expunge(session_obj)  # Detach object from session
             logger.info("Session created", session_id=session_id, user_id=user_id)
             return session_obj
 
