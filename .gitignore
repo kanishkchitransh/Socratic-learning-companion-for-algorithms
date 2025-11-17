@@ -1,0 +1,12 @@
+# Data directories
+data/raw_pdfs/*
+!data/raw_pdfs/README.md
+!data/raw_pdfs/*/
+data/embeddings/
+
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+.env
